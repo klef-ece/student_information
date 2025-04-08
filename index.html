@@ -4,54 +4,110 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>KL University</title>
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    body {
-      font-family: Arial, sans-serif;
+    * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
       background: #f5f6fa;
       color: #333;
+      scroll-behavior: smooth;
     }
 
     header {
       background: #004080;
       color: white;
-      padding: 1.5rem 2rem;
+      padding: 2rem 2rem 1rem;
       text-align: center;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
     }
 
     nav {
       background: #003366;
       display: flex;
       justify-content: center;
-      padding: 0.5rem;
+      flex-wrap: wrap;
+      padding: 0.75rem;
     }
 
     nav a {
       color: white;
       text-decoration: none;
-      margin: 0 1rem;
-      font-weight: bold;
+      margin: 0.5rem 1rem;
+      font-weight: 600;
     }
 
     nav a:hover {
       text-decoration: underline;
     }
 
+    img.banner {
+      width: 100%;
+      max-height: 400px;
+      object-fit: cover;
+    }
+
     section {
-      padding: 2rem;
+      padding: 2rem 1rem;
     }
 
     .about, .departments, .contact {
       background: white;
       margin: 1rem auto;
       max-width: 900px;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.08);
+      padding: 2rem;
+    }
+
+    .departments:nth-of-type(2) {
+      background: #eef2f7;
+    }
+
+    .contact {
+      background: #e6f2ff;
     }
 
     h2 {
       color: #004080;
+      margin-bottom: 1rem;
+    }
+
+    .departments ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .departments ul li {
+      background: #fff;
+      padding: 0.75rem 1rem;
+      margin-bottom: 0.5rem;
+      border-radius: 6px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .cta-button {
+      display: inline-block;
+      background: #004080;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      margin-top: 1rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .cta-button:hover {
+      background: #002f66;
     }
 
     footer {
@@ -62,12 +118,11 @@
       margin-top: 2rem;
     }
 
-    .departments ul {
-      list-style-type: square;
-      padding-left: 1.5rem;
-    }
-
     @media (max-width: 600px) {
+      header h1 {
+        font-size: 1.8rem;
+      }
+
       nav {
         flex-direction: column;
         align-items: center;
@@ -82,18 +137,21 @@
     <p>Department of ECE</p>
   </header>
 
+  <!-- Optional: Hero Image -->
+  <img src="https://via.placeholder.com/1500x400?text=KL+University+Campus" alt="KL University Banner" class="banner" />
+
   <nav>
     <a href="#about">About</a>
     <a href="#departments">Departments</a>
+    <a href="#cohorts">Cohorts</a>
     <a href="#contact">Contact</a>
-<a href="Cohorts">Contact</a>
-	<a href="studentinfo.html">Y22 Student Info</a>
-
+    <a href="studentinfo.html">Y22 Student Info</a>
   </nav>
 
   <section class="about" id="about">
     <h2>About KL University</h2>
     <p>KLEF (Deemed to be University) is a premier educational institution dedicated to providing high-quality education and fostering innovation. With a legacy of excellence, KL University offers a wide range of programs across various disciplines.</p>
+    <a href="https://kluniversity.in/apply" class="cta-button">Apply Now</a>
   </section>
 
   <section class="departments" id="departments">
@@ -101,26 +159,26 @@
     <ul>
       <li>M.Tech VLSI</li>
       <li>M.Tech ES</li>
-       <li>M.Tech AR</li>
+      <li>M.Tech AR</li>
     </ul>
   </section>
 
-  <section class="departments" id="departments">
-    <h2>Departments</h2>
+  <section class="departments" id="cohorts">
+    <h2>ECE Cohorts</h2>
     <ul>
       <li>Bio-Medical Instrumentation</li>
       <li>Data Communications and Security</li>
-       <li>5G-6G Wireless Communications</li>
-	<li>Embedded & IoT</li>
-	<li>RF & Microwave</li>
-	<li>Robotics and Automation</li>
-	<li>VLSI</li>
+      <li>5G-6G Wireless Communications</li>
+      <li>Embedded & IoT</li>
+      <li>RF & Microwave</li>
+      <li>Robotics and Automation</li>
+      <li>VLSI</li>
     </ul>
   </section>
 
   <section class="contact" id="contact">
     <h2>Contact Us</h2>
-    <p>Email: m.k.sureshkumar@kluniversity.in</p>
+    <p>Email: <a href="mailto:hod.ece@kluniversity.in">hod.ece@kluniversity.in</a></p>
     <p>Phone: +91-9894237318</p>
     <p>Location: Vaddeswaram, Andhra Pradesh, India</p>
   </section>
