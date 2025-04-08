@@ -6,11 +6,23 @@ async function fetchExcelData() {
 
         const data = await response.arrayBuffer();
         const workbook = XLSX.read(data, { type: "array" });
-        const sheet = workbook.Sheets[workbook.SheetNames[0]];
-        const jsonData = XLSX.utils.sheet_to_json(sheet, { header: 1 });
 
-        console.log("✅ Excel Raw Data:", jsonData);
-        return jsonData;
+        let combinedData = [];
+
+        workbook.SheetNames.forEach(sheetName => {
+            const sheet = workbook.Sheets[sheetName];
+            const sheetData = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+
+            if (sheetData.length > 1) {
+                combinedData.push({
+                    headers: sheetData[0],
+                    rows: sheetData.slice(1)
+                });
+            }
+        });
+
+        return combinedData;
+
     } catch (error) {
         console.error("❌ Error loading Excel file:", error);
         return [];
@@ -31,73 +43,80 @@ async function searchData() {
 
     const allEmpty = searchTerms.every(term => term === "") && globalSearch === "";
 
-    if (allEmpty) {
-        document.getElementById("noSearchMessage").style.display = "block";
-        document.getElementById("dataTable").style.display = "none";
-        return;
-    }
-
-    document.getElementById("noSearchMessage").style.display = "none";
-
-    const rawData = await fetchExcelData();
-    if (rawData.length < 2) return;
-
-    const headers = rawData[0];
-    const rows = rawData.slice(1);
-
-    const filteredRows = rows.filter(row => {
-        // Match column-specific search
-        const columnMatch = searchTerms.every((term, index) => {
-            if (!term) return true;
-            const cell = row[index] ?? "";
-            return cell.toString().toLowerCase().includes(term);
-        });
-
-        // Match global search
-        const globalMatch = !globalSearch || row.some(cell =>
-            cell?.toString().toLowerCase().includes(globalSearch)
-        );
-
-        return columnMatch && globalMatch;
-    });
-
     const table = document.getElementById("dataTable");
     const tableHead = document.getElementById("tableHead");
     const tableBody = document.getElementById("tableBody");
+    const noMessage = document.getElementById("noSearchMessage");
+
+    if (allEmpty) {
+        table.style.display = "none";
+        noMessage.style.display = "block";
+        return;
+    }
+
+    const allSheetsData = await fetchExcelData();
 
     tableHead.innerHTML = "";
     tableBody.innerHTML = "";
 
-    headers.forEach(header => {
-        const th = document.createElement("th");
-        th.textContent = header;
-        tableHead.appendChild(th);
+    let foundResults = false;
+
+    allSheetsData.forEach(({ headers, rows }) => {
+        const matchingRows = rows.filter(row => {
+            const columnMatch = searchTerms.every((term, index) => {
+                if (!term) return true;
+                const cell = row[index] ?? "";
+                return cell.toString().toLowerCase().includes(term);
+            });
+
+            const globalMatch = !globalSearch || row.some(cell =>
+                cell?.toString().toLowerCase().includes(globalSearch)
+            );
+
+            return columnMatch && globalMatch;
+        });
+
+        if (matchingRows.length > 0) {
+            foundResults = true;
+
+            // Add table headers (only once)
+            if (tableHead.childElementCount === 0) {
+                headers.forEach(header => {
+                    const th = document.createElement("th");
+                    th.textContent = header;
+                    tableHead.appendChild(th);
+                });
+            }
+
+            // Add matching rows
+            matchingRows.forEach(row => {
+                const tr = document.createElement("tr");
+
+                const containsCGPA = row.some(cell =>
+                    cell?.toString().toLowerCase().includes("cgpa")
+                );
+                if (containsCGPA) {
+                    tr.classList.add("highlight-row");
+                }
+
+                headers.forEach((_, index) => {
+                    const td = document.createElement("td");
+                    td.textContent = row[index] ?? "";
+                    tr.appendChild(td);
+                });
+
+                tableBody.appendChild(tr);
+            });
+        }
     });
 
-    if (filteredRows.length === 0) {
-        tableBody.innerHTML = `<tr><td colspan="${headers.length}">No matching results found.</td></tr>`;
-        table.style.display = "block";
-        return;
+    if (foundResults) {
+        table.style.display = "table";
+        noMessage.style.display = "none";
+    } else {
+        tableHead.innerHTML = "";
+        tableBody.innerHTML = `<tr><td colspan="100%">No matching results found.</td></tr>`;
+        table.style.display = "table";
+        noMessage.style.display = "none";
     }
-    filteredRows.forEach(row => {
-    const tr = document.createElement("tr");
-
-    // Highlight row if any cell contains "cgpa"
-    const containsCGPA = row.some(cell =>
-        cell?.toString().toLowerCase().includes("cgpa")
-    );
-    if (containsCGPA) {
-        tr.classList.add("highlight-row");
-    }
-
-    headers.forEach((_, index) => {
-        const td = document.createElement("td");
-        td.textContent = row[index] ?? "";
-        tr.appendChild(td);
-    });
-
-    tableBody.appendChild(tr);
-});
-
-    table.style.display = "block";
 }
