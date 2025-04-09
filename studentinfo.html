@@ -8,51 +8,49 @@
   <script src="script.js" defer></script>
 
   <style>
-  .highlight-row {
-    background-color: yellow !important;
-    color: black !important;
-  }
-
-
-/***************** TOP RIBBON ***************/
-html, body {
-  margin: 0;
-  padding: 0;
-}
-
-.top-section {
-  margin-top: 0;
-  background-image: url('https://raw.githubusercontent.com/klef-ece/student_information/main/kllogo.jpg');
-  background-repeat: no-repeat;
-  background-position: center top;
-  background-size: contain;
-  padding-top: 150px;
-  height: 150px; /* Ensures the div has visible height */
-  position: relative;
-  z-index: 3;
-  text-align: center;
-}
-.top-section h1 {
-  font-size: 50px;
-  margin-bottom: 3px;
-}
-.top-section h3 {
-  font-size: 30px;
-  margin-top: 3px;
-  margin-bottom: 3px;
-}
-.top-section h2 {
-  font-size: 38px;
-  margin-top: 3px;
-}
-   
+    /***************** TOP RIBBON ***************/
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
     }
+
+    .top-section {
+      margin-top: 0;
+      background-image: url('https://raw.githubusercontent.com/klef-ece/student_information/main/kllogo.jpg');
+      background-repeat: no-repeat;
+      background-position: center top;
+      background-size: contain;
+      padding-top: 150px;
+      height: 150px;
+      position: relative;
+      z-index: 3;
+      text-align: center;
+    }
+
+    .top-section h1 {
+      font-size: 50px;
+      margin-bottom: 3px;
+    }
+
+    .top-section h2 {
+      font-size: 38px;
+      margin-top: 3px;
+    }
+
+    .top-section h3 {
+      font-size: 30px;
+      margin-top: 3px;
+      margin-bottom: 3px;
+    }
+
     input[type="text"] {
       padding: 25px;
       border: 1px solid #ccc;
       border-radius: 4px;
       margin: 5px;
     }
+
     button {
       padding: 7px 15px;
       background-color: #28a745;
@@ -61,93 +59,89 @@ html, body {
       border-radius: 4px;
       cursor: pointer;
     }
+
     button:hover {
       background-color: #218838;
     }
+
     table {
       width: 100%;
       border-collapse: collapse;
     }
+
     th, td {
       border: 1px solid black;
       padding: 10px;
       text-align: left;
     }
+
     th {
       background-color: #f2f2f2;
       position: sticky;
       top: 0;
     }
+
     .table-container {
       max-height: 500px;
       overflow-y: auto;
       border: 1px solid #ddd;
+      background-color: rgba(255, 255, 255, 1);
+      backdrop-filter: blur(5px);
+      padding: 10px;
+      border-radius: 8px;
     }
+
     .highlight-row {
       background-color: yellow !important;
+      color: black !important;
     }
+
     body {
-      background-color: lightblue;
-      font-family: Arial, sans-serif;
+      background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      overflow: hidden;
     }
-
-body {
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
-  overflow: hidden;
-}
-
-body {
-  margin: 0;
-  padding: 0;
-  background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  font-family: Arial, sans-serif;
-}
-.table-container {
-  max-height: 500px;
-  overflow-y: auto;
-  border: 1px solid #ddd;
-  background-color: rgba(255, 255, 255, 1); /* semi-transparent white */
-  backdrop-filter: blur(5px);
-  padding: 10px;
-  border-radius: 8px;
-}
-</style>
+  </style>
 </head>
 <body>
 
-<div style="text-align: center;">
-  <label for="searchInput1" style="font-size: 20px; font-weight: bold;">Faculty Emp ID:</label>
-  <input type="text" id="searchInput1" placeholder="Enter Faculty Emp ID" style="width: 10%; padding: 10px;">
-  <input type="text" id="searchInput2" placeholder="Enter Student University... ID" style="width: 10%; padding: 8px;">
-<select id="searchInput3" style="width: 10%; padding: 8px;">
-  <option value="">Select Year...</option>
-  <option value="1">1st Year</option>
-  <option value="2">2nd Year</option>
-  <option value="3">3rd Year</option>
-  <option value="4">4th Year</option>
-    <option value="Pending">Pending Courses</option>
-    <option value="Discontinued">Discontinued Stud</option>
-</select>
-<select id="searchInput4" style="width: 10%; padding: 8px;">
-  <option value="">Select Semester...</option>
-  <option value="Odd Sem">Odd Sem</option>
-  <option value="Even Sem">Even Sem</option>
-  <option value="Summer">Summer</option>
-</select>
- 
-  <input type="text" id="searchInput5" placeholder="Enter Course Code..." style="width: 10%; padding: 8px;">
-  <input type="text" id="searchInput6" placeholder="Enter Name of the Course..." style="width: 10%; padding: 8px;">
-  <button onclick="searchData()">Search</button>
-  <br><br>
-  <label for="searchInputGlobal" style="font-size: 20px; font-weight: bold;">Search Any Details:</label>
-  <input type="text" id="searchInputGlobal" placeholder="🔍 Global search..." style="width: 45%; padding: 8px;">
-  <button onclick="searchData()">Search</button>
-</div> 
+  <!-- ✅ Top Ribbon Section -->
+  <div class="top-section">
+    <h1>KLEF</h1>
+    <h2>Department of ECE</h2>
+    <h3>Student Information Portal</h3>
+  </div>
+
+  <div style="text-align: center;">
+    <label for="searchInput1" style="font-size: 20px; font-weight: bold;">Faculty Emp ID:</label>
+    <input type="text" id="searchInput1" placeholder="Enter Faculty Emp ID" style="width: 10%; padding: 10px;">
+    <input type="text" id="searchInput2" placeholder="Enter Student University... ID" style="width: 10%; padding: 8px;">
+    <select id="searchInput3" style="width: 10%; padding: 8px;">
+      <option value="">Select Year...</option>
+      <option value="1">1st Year</option>
+      <option value="2">2nd Year</option>
+      <option value="3">3rd Year</option>
+      <option value="4">4th Year</option>
+      <option value="Pending">Pending Courses</option>
+      <option value="Discontinued">Discontinued Stud</option>
+    </select>
+    <select id="searchInput4" style="width: 10%; padding: 8px;">
+      <option value="">Select Semester...</option>
+      <option value="Odd Sem">Odd Sem</option>
+      <option value="Even Sem">Even Sem</option>
+      <option value="Summer">Summer</option>
+    </select>
+    <input type="text" id="searchInput5" placeholder="Enter Course Code..." style="width: 10%; padding: 8px;">
+    <input type="text" id="searchInput6" placeholder="Enter Name of the Course..." style="width: 10%; padding: 8px;">
+    <button onclick="searchData()">Search</button>
+    <br><br>
+    <label for="searchInputGlobal" style="font-size: 20px; font-weight: bold;">Search Any Details:</label>
+    <input type="text" id="searchInputGlobal" placeholder="🔍 Global search..." style="width: 45%; padding: 8px;">
+    <button onclick="searchData()">Search</button>
+  </div> 
+
   <p id="noSearchMessage" style="text-align: center;">Enter search terms to see results.</p>
 
   <div class="table-container">
@@ -158,5 +152,6 @@ body {
       <tbody id="tableBody"></tbody>
     </table>
   </div>
+
 </body>
 </html>
